@@ -1,0 +1,5 @@
+handle async callbacks
+handle errors even if they are not handled in the callback
+handle should.not.exist(err)
+
+AShare.deleteMany({ _id: { $in: [_ashareId, _ashareId2] } }, err => done(err)) handle no success callback

@@ -7,7 +7,7 @@ const mongooseMigration = require('./mongoose-migration'); // Import migration s
 
 describe('Mongoose Migration Script - Edge Cases', () => {
     const testCases = [
-        // { name: 'Standard Callback Hell', input: 'input.js', expected: 'expected.js' },
+        { name: 'Standard Callback Hell', input: 'input.js', expected: 'expected.js' },
         // { name: 'Empty Callback', input: 'empty-callback-input.js', expected: 'empty-callback-expected.js' },
         // { name: 'No Error Handling', input: 'no-error-handling-input.js', expected: 'no-error-handling-expected.js' },
         // { name: 'Nested Callbacks with Unused Variables', input: 'nested-unused-vars-input.js', expected: 'nested-unused-vars-expected.js' },
@@ -20,7 +20,7 @@ describe('Mongoose Migration Script - Edge Cases', () => {
         // { name: 'Callback with Complex Logic', input: 'complex-logic-input.js', expected: 'complex-logic-expected.js' },
         // { name: 'Callback with BeforeAll', input: 'before-all-input.js', expected: 'before-all-expected.js' },
         // { name: 'Callback with Test File', input: 'test-file-input.js', expected: 'test-file-expected.js' },
-        { name: 'Callback with HttpConnector', input: 'httpConnector.test-input.js', expected: 'httpConnector.test-expected.js' }
+        // { name: 'Callback with HttpConnector', input: 'httpConnector.test-input.js', expected: 'httpConnector.test-expected.js' }
     ];
 
     testCases.forEach(({ name, input, expected }) => {
@@ -35,12 +35,11 @@ describe('Mongoose Migration Script - Edge Cases', () => {
             const transformedCode = mongooseMigration(
                 { source: inputCode },      // Pass as fileInfo
                 { jscodeshift },            // Pass jscodeshift API
-                {}                          // Additional options (empty for now)
             );
 
            
             // save the transformed code to a file
-            fs.writeFileSync("results/"+ input + '-transformed.js', transformedCode);
+            fs.writeFileSync(__dirname + "/results/"+ input + '-transformed.js', transformedCode);
 
              // Parse the transformed code and expected code into ASTs using esprima
              const transformedAST = esprima.parse(transformedCode);
