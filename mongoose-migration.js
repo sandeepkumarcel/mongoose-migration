@@ -219,6 +219,7 @@ function migrateRemove (j, path) {
   ) {
     // Replace remove() with deleteOne() or deleteMany()
     const newMethod = j.identifier('deleteMany') // Default to deleteMany
+    // delete or deleteMany ==> decide??
     path.replace(
       j.callExpression(
         j.memberExpression(
