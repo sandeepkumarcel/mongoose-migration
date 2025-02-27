@@ -18,7 +18,7 @@ module.exports = function (fileInfo, { jscodeshift: j }, defaultCallbackIdentifi
 }
 
 function migrateCallbacks (j, path,defaultCallbackIdentifier) {
-  const MONGOOSE_METHODS = ['find', 'findOne', 'updateOne', 'deleteOne', 'deleteMany', 'save', 'remove', 'exec']
+  const MONGOOSE_METHODS = ['find', 'findOne', 'findOneAndUpdate' ,'updateOne', 'deleteOne', 'deleteMany', 'save', 'remove', 'exec', 'findOneAndRemove']
   const { callee, arguments: args } = path.node
   if (
     callee.type === 'MemberExpression' &&
@@ -60,6 +60,11 @@ function migrateCallbacks (j, path,defaultCallbackIdentifier) {
             }
           }
           foundErrorBlock = true
+          
+          // Add else block to successPath if it exists
+          if (statement.alternate) {
+            successPath.push(statement.alternate)
+          }
           return // Skip adding to successPath
         }
       }
